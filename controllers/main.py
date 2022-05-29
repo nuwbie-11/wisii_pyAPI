@@ -1,12 +1,15 @@
-import base64
+import werkzeug
 from flask import render_template, request, jsonify
 import numpy as np
 
 
 
-def main():
+def get():
     if request.method == 'POST':
-        data = request.get_json(force=True)
-        image_data = data['image']
-        imgdata = base64.b64decode(image_data)
-        return jsonify({'response':f'Hello World{image_data}'})
+
+        # data = request.get_json(force=True)
+        # image_data = data['image']
+        # imgdata = base64.b64decode(image_data)
+        # img_file = request.files['image']
+        # filename = werkzeug.utils.get_filename(img_file)
+        return jsonify({'response':'Hello World'})

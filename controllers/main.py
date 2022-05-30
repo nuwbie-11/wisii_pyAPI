@@ -10,6 +10,6 @@ def predict():
         # data = request.get_json(force=True)
         # image_data = data['image']
         # imgdata = base64.b64decode(image_data)
-        # img_file = request.files['image']
+        img_file = request.files['images']
         # filename = werkzeug.utils.get_filename(img_file)
-        return jsonify({'response':'Hello World'})
+        return jsonify({'response':f'Hello World{type(img_file)}'})

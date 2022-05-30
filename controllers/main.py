@@ -4,7 +4,7 @@ import numpy as np
 
 
 
-def hello_world():
+def predict():
     if request.method == 'POST':
 
         # data = request.get_json(force=True)

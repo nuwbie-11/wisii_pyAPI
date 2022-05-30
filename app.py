@@ -11,11 +11,11 @@ def predict():
     if request.method == 'POST':
 
         # data = request.get_json(force=True)
-        # image_data = data['image']
+        # image_data = data['images']
         # imgdata = base64.b64decode(image_data)
-        # img_file = request.files['image']
+        img_file = request.files['images']
         # filename = werkzeug.utils.get_filename(img_file)
         return jsonify({'response':'Hello World'})
 
 if __name__ == '__main__':
-    app.run(port=5000, debug=True,host = '0.0.0.0')
+    app.run(debug=True,host = '0.0.0.0')

@@ -34,4 +34,6 @@ Werkzeug==2.0.3
 wheel==0.37.1
 win-inet-pton==1.1.0
 wincertstore==0.2
-gunicorn ==20.0.4
+gunicorn == 20.0.4
+opencv-python==4.5.5.64
+Pillow==9.0.0

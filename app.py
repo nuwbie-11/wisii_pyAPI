@@ -15,7 +15,7 @@ def predict():
         # image_data = data['images']
         # imgdata = base64.b64decode(image_data)
         img_file = request.files['images'].read()
-        npimg = np.fromstring(img_file,np.uint8)
+        # npimg = np.fromstring(img_file,np.uint8)
         # filename = werkzeug.utils.secure_filename(img_file.filename)\
         # img = cv2.imdecode(npimg, cv2.CV_LOAD_IMAGE_UNCHANGED)
         return jsonify({'response':f'Hello World{npimg.shape}'})

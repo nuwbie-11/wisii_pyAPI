@@ -15,7 +15,7 @@ def predict():
         # imgdata = base64.b64decode(image_data)
         img_file = request.files['images']
         # filename = werkzeug.utils.secure_filename(img_file.filename)
-        return jsonify({'response':f'Hello World{100}'})
+        return jsonify({'response':f'Hello World{type(img_file)}'})
 
 if __name__ == '__main__':
     app.run(port=5000, debug=True,host = '0.0.0.0')

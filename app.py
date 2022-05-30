@@ -17,8 +17,8 @@ def predict():
         img_file = request.files['images'].read()
         npimg = np.fromstring(img_file,np.uint8)
         # filename = werkzeug.utils.secure_filename(img_file.filename)\
-        img = cv2.imdecode(npimg, cv2.CV_LOAD_IMAGE_UNCHANGED)
-        return jsonify({'response':f'Hello World{img.shape}'})
+        # img = cv2.imdecode(npimg, cv2.CV_LOAD_IMAGE_UNCHANGED)
+        return jsonify({'response':f'Hello World{npimg.shape}'})
 
 if __name__ == '__main__':
     app.run(port=5000, debug=True,host = '0.0.0.0')

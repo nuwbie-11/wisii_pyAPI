@@ -12,11 +12,14 @@ app = Flask(__name__)
 def predict():
     if request.method == 'POST':
         img = request.files['images'].read()
-        # npimg = np.fromstring(filestr, np.uint8)
-        # img = cv2.imdecode(npimg,-1)
+        npimg = np.fromstring(img, np.uint8)
+        img = cv2.imdecode(npimg,-1)
 
-        return(jsonify({"response":"Hellow"}))
-                
+        try:
+            return(jsonify({"response":f"Hellow{img.shape}"}))
+        except Exception as e:
+            return(jsonify({"response":f"Hellow{e}"}))
+
 
 if __name__ == '__main__':
     app.run(port=5000, debug=True)

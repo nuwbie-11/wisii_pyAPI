@@ -14,7 +14,9 @@ def predict():
         filestr = request.files['images'].read()
         npimg = np.fromstring(filestr, np.uint8)
         img = cv2.imdecode(npimg,-1)
+
+    return(jsonify({"response":"Hellow"}))
                 
 
 if __name__ == '__main__':
-    app.run(port=5000, debug=True,host = '0.0.0.0')
+    app.run(port=5000, debug=True)

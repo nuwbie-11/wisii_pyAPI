@@ -5,6 +5,7 @@ import io
 import cv2
 # from routes.route import user_bp
 import tensorflow as tf
+import keras
 from tensorflow.keras.preprocessing import image
 
 app = Flask(__name__)
@@ -14,7 +15,7 @@ app = Flask(__name__)
 def predict():
     if request.method == 'POST':
         message = "Tidak Dikenali"
-        model = tf.keras.load_model('model/MDClassification')
+        model = keras.load_model('model/MDClassification')
         img = request.files['images'].read()
         npimg = np.fromstring(img, np.uint8)
         img = cv2.imdecode(npimg,-1)

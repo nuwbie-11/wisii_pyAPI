@@ -45,7 +45,7 @@ def predict():
         message = labels[ix]
 
         try:
-            return (f"{message+ix}")
+            return (f"{ix}")
         except Exception as e:
             return (f"{e}")
 

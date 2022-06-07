@@ -1,44 +1,61 @@
-from flask import Flask, render_template,request, jsonify
+from flask import Flask, render_template, request, jsonify
+
 # import joblib
 import numpy as np
 import io
 import cv2
+
 # from routes.route import user_bp
-import tensorflow 
-from tensorflow.keras.models import load_model
+import tensorflow as tf
+
+# from tensorflow.keras.models import load_model
 from tensorflow.keras.preprocessing import image
 
 app = Flask(__name__)
 # app.register_blueprint(user_bp, url_prefix='/')
 
-@app.route('/predict',methods=['POST'])
+
+@app.route("/predict", methods=["POST"])
 def predict():
-    if request.method == 'POST':
+    if request.method == "POST":
         message = "Tidak Dikenali"
-        model = load_model('model/MDClassification')
-        img = request.files['images'].read()
+
+        img = request.files["images"].read()
         npimg = np.fromstring(img, np.uint8)
-        img = cv2.imdecode(npimg,-1)
-        img = cv2.resize(img,(150,150))
+        img = cv2.imdecode(npimg, -1)
+        img = cv2.resize(img, (224, 224))
 
         x = image.img_to_array(img)
-        x = np.expand_dims(x,axis=0)
+        x.resize(1, 224, 224, 3)
 
-        img = np.vstack([x])
-        classes = model.predict(img,batch_size=10)
+        interpreter = tf.lite.Interpreter("model/my_model.tflite")
+        interpreter.allocate_tensors()
+        input_details = interpreter.get_input_details()
+        output_details = interpreter.get_output_details()
 
-        if classes[0][0]==1:
-            message = ('100k')
-        elif classes[0][1]==1:
-            message = ('10k')
-        elif classes[0][2]==1:
-            message = ('50k')
+        interpreter.set_tensor(input_details[0]["index"], x)
+        interpreter.invoke()
+        output_data = interpreter.get_tensor(output_details[0]["index"])
+        # print(output_data)
+        higehst_conf = max(output_data[0])
+        ix = np.where(output_data == higehst_conf)[-1][0]
+
+        labels = {
+            0: "100 Ribu",
+            1: "10 Ribu",
+            2: "20 Ribu",
+            3: "2 Ribu",
+            4: "50 Ribu",
+            5: "5 Ribu",
+        }
+
+        message = labels[ix]
 
         try:
-            return(jsonify({"response":f"{message}"}))
+            return jsonify({"response": f"{message}"})
         except Exception as e:
-            return(jsonify({"response":f"Hellow{e}"}))
+            return jsonify({"response": f"Hellow{e}"})
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     app.run(port=5000, debug=True)

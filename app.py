@@ -1,14 +1,7 @@
-from flask import Flask, render_template, request, jsonify
-
-# import joblib
+from flask import Flask,request
 import numpy as np
-import io
 import cv2
-
-# from routes.route import user_bp
 import tensorflow as tf
-
-# from tensorflow.keras.models import load_model
 from tensorflow.keras.preprocessing import image
 
 app = Flask(__name__)
@@ -52,9 +45,9 @@ def predict():
         message = labels[ix]
 
         try:
-            return jsonify({"response": f"{message}"})
+            return (f"{message+ix}")
         except Exception as e:
-            return jsonify({"response": f"Hellow{e}"})
+            return (f"{e}")
 
 
 if __name__ == "__main__":

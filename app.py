@@ -45,7 +45,7 @@ def predict():
         message = labels[ix]
 
         try:
-            return (f"{ix}")
+            return (f"Tebakan tertinggi pada {message} dengan nilai {higehst_conf}")
         except Exception as e:
             return (f"{e}")
 

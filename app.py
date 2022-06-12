@@ -22,7 +22,7 @@ def predict():
         x = image.img_to_array(img)
         x.resize(1, 224, 224, 3)
 
-        interpreter = tf.lite.Interpreter("model/my_model.tflite")
+        interpreter = tf.lite.Interpreter("model/my_model2.tflite")
         interpreter.allocate_tensors()
         input_details = interpreter.get_input_details()
         output_details = interpreter.get_output_details()
@@ -35,13 +35,13 @@ def predict():
         ix = np.where(output_data == higehst_conf)[-1][0]
 
         labels = {
-            0: "100 Ribu",
+            0: "1 Ribu",
             1: "10 Ribu",
-            2: "1 Ribu",
-            3: "20 Ribu",
-            4: "2 Ribu",
-            5: "50 Ribu",
-            6: "5 Ribu",
+            2: "2 Ribu",
+            3: "50 Ribu",
+            # 4: "2 Ribu",
+            # 5: "50 Ribu",
+            # 6: "5 Ribu",
         }
 
         message = labels[ix]

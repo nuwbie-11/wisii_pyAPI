@@ -17,12 +17,12 @@ def predict():
         npimg = np.fromstring(img, np.uint8)
         img = cv2.imdecode(npimg, -1)
         img = cv2.resize(img, (150, 150))
-        img = cv2.cvtColor(img, cv2.COLOR_RGB2RGBA)
+        # img = cv2.cvtColor(img, cv2.COLOR_RGB2RGBA)
 
         x = image.img_to_array(img)
-        x.resize(1, 150, 150, 4)
+        x.resize(1, 150, 150, 3)
 
-        interpreter = tf.lite.Interpreter("model/mmodel.tflite")
+        interpreter = tf.lite.Interpreter("model/my_model2.tflite")
         interpreter.allocate_tensors()
         input_details = interpreter.get_input_details()
         output_details = interpreter.get_output_details()
@@ -37,16 +37,17 @@ def predict():
         labels = {
             0: "100 Ribu",
             1: "10 Ribu",
-            2: "20 Ribu",
-            3: "2 Ribu",
-            4: "50 Ribu",
-            5: "5 Ribu",
+            2: "1 Ribu",
+            3: "20 Ribu",
+            4: "2 Ribu",
+            5: "50 Ribu",
+            6: "5 Ribu",
         }
 
         message = labels[ix]
 
         try:
-            return (f"Tebakan tertinggi pada {message} dengan nilai {higehst_conf}")
+            return (f"Tebakan tertinggi pada {message} dengan nilai {higehst_conf:.2f*100}%")
         except Exception as e:
             return (f"{e}")
 

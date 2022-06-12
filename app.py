@@ -21,7 +21,7 @@ def predict():
         x = image.img_to_array(img)
         x.resize(1, 224, 224, 3)
 
-        interpreter = tf.lite.Interpreter("model/my_model.tflite")
+        interpreter = tf.lite.Interpreter("model/mmodel.tflite")
         interpreter.allocate_tensors()
         input_details = interpreter.get_input_details()
         output_details = interpreter.get_output_details()

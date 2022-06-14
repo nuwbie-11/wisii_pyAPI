@@ -1,4 +1,4 @@
-from flask import Flask,request
+from flask import Flask, request
 import numpy as np
 import cv2
 import tensorflow as tf
@@ -11,13 +11,11 @@ app = Flask(__name__)
 @app.route("/predict", methods=["POST"])
 def predict():
     if request.method == "POST":
-        message = "Tidak Dikenali"
 
         img = request.files["images"].read()
         npimg = np.fromstring(img, np.uint8)
         img = cv2.imdecode(npimg, -1)
         img = cv2.resize(img, (224, 224))
-        # img = cv2.cvtColor(img, cv2.COLOR_RGB2RGBA)
 
         x = image.img_to_array(img)
         x.resize(1, 224, 224, 3)
@@ -35,21 +33,21 @@ def predict():
         ix = np.where(output_data == higehst_conf)[-1][0]
 
         labels = {
-            0: "1 Ribu",
-            1: "10 Ribu",
-            2: "2 Ribu",
-            3: "50 Ribu",
-            # 4: "2 Ribu",
-            # 5: "50 Ribu",
-            # 6: "5 Ribu",
+            0:"1.000",
+            1:"10.000",
+            2:"100.000",
+            3:"2.000",
+            4:"20.000",
+            5:"5.000",
+            6:"50.000",
         }
 
         message = labels[ix]
 
         try:
-            return (f"Tebakan tertinggi pada {message} dengan nilai {(higehst_conf*100):.2f}%")
+            return f"Prediksi {message} Rupiah /nDengan nilai {(higehst_conf*100):.2f}%"
         except Exception as e:
-            return (f"{e}")
+            return f"{e}"
 
 
 if __name__ == "__main__":

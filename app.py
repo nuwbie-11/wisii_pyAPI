@@ -20,7 +20,7 @@ def predict():
         x = image.img_to_array(img)
         x.resize(1, 224, 224, 3)
 
-        interpreter = tf.lite.Interpreter("model/Mobilenetv2plusConv2d2V2.tflite")
+        interpreter = tf.lite.Interpreter("model/tmp49xrx4h3.tflite")
         interpreter.allocate_tensors()
         input_details = interpreter.get_input_details()
         output_details = interpreter.get_output_details()
@@ -45,7 +45,7 @@ def predict():
         message = labels[ix]
 
         try:
-            return f"Prediksi {message} Rupiah /nDengan nilai {(higehst_conf*100):.2f}%"
+            return f"Prediksi {message} Rupiah Dengan nilai {(higehst_conf*100):.2f}%"
         except Exception as e:
             return f"{e}"
 

@@ -20,7 +20,7 @@ def predict():
         x = image.img_to_array(img)
         x.resize(1, 224, 224, 3)
 
-        interpreter = tf.lite.Interpreter("model/my_model_SR.tflite")
+        interpreter = tf.lite.Interpreter("model/Mobilenetv2plusConv2d232Unit3x3FilterV2Pruned.tflite")
         interpreter.allocate_tensors()
         input_details = interpreter.get_input_details()
         output_details = interpreter.get_output_details()
@@ -43,13 +43,13 @@ def predict():
         }
 
         result = f"""
-
+        1.000 Rupiah {(output_data[0][0]*100):.2f} %
         2.000 Rupiah {(output_data[0][3]*100):.2f} %
         5.000 Rupiah {(output_data[0][5]*100):.2f} %
         10.000 Rupiah {(output_data[0][1]*100):.2f} %
-        20.000 Rupiah {(output_data[0][2]*100):.2f} %
-        50.000 Rupiah {(output_data[0][4]*100):.2f} %
-        100.000 Rupiah {(output_data[0][1]*100):.2f} %
+        20.000 Rupiah {(output_data[0][4]*100):.2f} %
+        50.000 Rupiah {(output_data[0][6]*100):.2f} %
+        100.000 Rupiah {(output_data[0][2]*100):.2f} %
         """
 
         # message = labels[ix]

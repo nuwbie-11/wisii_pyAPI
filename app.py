@@ -15,7 +15,7 @@ def predict():
         img = request.files["images"].read()
         npimg = np.fromstring(img, np.uint8)
         img = cv2.imdecode(npimg, -1)
-        img = cv2.resize(img, (224, 224))
+        img = cv2.resize(img, (224, 224))/255
 
         x = image.img_to_array(img)
         x.resize(1, 224, 224, 3)

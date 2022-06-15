@@ -43,13 +43,13 @@ def predict():
         }
 
         result = f"""
-        1.000 Rupiah {(output_data[0][0]*100):.2f} %
+
         2.000 Rupiah {(output_data[0][3]*100):.2f} %
         5.000 Rupiah {(output_data[0][5]*100):.2f} %
         10.000 Rupiah {(output_data[0][1]*100):.2f} %
-        20.000 Rupiah {(output_data[0][4]*100):.2f} %
-        50.000 Rupiah {(output_data[0][6]*100):.2f} %
-        100.000 Rupiah {(output_data[0][2]*100):.2f} %
+        20.000 Rupiah {(output_data[0][2]*100):.2f} %
+        50.000 Rupiah {(output_data[0][4]*100):.2f} %
+        100.000 Rupiah {(output_data[0][1]*100):.2f} %
         """
 
         # message = labels[ix]

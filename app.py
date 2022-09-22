@@ -15,9 +15,9 @@ def predict():
         img = request.files["images"].read()
         npimg = np.fromstring(img, np.uint8)
         img = cv2.imdecode(npimg, -1)
-        img = cv2.resize(img, (224, 224))/255
+        img = cv2.resize(img, (224, 224))
 
-        x = image.img_to_array(img)
+        x = image.img_to_array(img)/255
         x.resize(1, 224, 224, 3)
 
         interpreter = tf.lite.Interpreter("model/Mobilenetv2plusConv2d2V6.tflite")
@@ -32,15 +32,6 @@ def predict():
         # higehst_conf = max(output_data[0])
         # ix = np.where(output_data == higehst_conf)[-1][0]
 
-        labels = {
-            0:"1.000",
-            1:"10.000",
-            2:"100.000",
-            3:"2.000",
-            4:"20.000",
-            5:"5.000",
-            6:"50.000",
-        }
 
         result = f"""
         1.000 Rupiah {(output_data[0][0]*100):.2f} %

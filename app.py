@@ -15,12 +15,12 @@ def predict():
         img = request.files["images"].read()
         npimg = np.fromstring(img, np.uint8)
         img = cv2.imdecode(npimg, -1)
-        img = cv2.resize(img, (224, 224))
+        img = cv2.resize(img, (224, 224))/255
 
-        x = image.img_to_array(img)/255
+        x = image.img_to_array(img)
         x.resize(1, 224, 224, 3)
 
-        interpreter = tf.lite.Interpreter("model/tmpMobilenetv2Pruned.tflite")
+        interpreter = tf.lite.Interpreter("model/tmp7pb1bcbg.tflite")
         interpreter.allocate_tensors()
         input_details = interpreter.get_input_details()
         output_details = interpreter.get_output_details()

@@ -17,36 +17,38 @@ def predict():
         img = cv2.imdecode(npimg, -1)
         img = cv2.resize(img, (224, 224))/255
 
-        x = image.img_to_array(img)
-        x.resize(1, 224, 224, 3)
+#         x = image.img_to_array(img)
+        x = tf.convert_to_tensor(x)
+        # img = tf.image.per_image_standardization(img)
+        img = tf.expand_dims(x, axis=0)
 
-        interpreter = tf.lite.Interpreter("model/tmp7pb1bcbg.tflite")
+        interpreter = tf.lite.Interpreter("model/forskripsi.tflite")
         interpreter.allocate_tensors()
+
         input_details = interpreter.get_input_details()
-        output_details = interpreter.get_output_details()
 
-        interpreter.set_tensor(input_details[0]["index"], x)
+        interpreter.set_tensor(input_details[0]["index"], img)
         interpreter.invoke()
+
+
+        output_details = interpreter.get_output_details()
         output_data = interpreter.get_tensor(output_details[0]["index"])
-        # print(output_data)
-        # higehst_conf = max(output_data[0])
-        # ix = np.where(output_data == higehst_conf)[-1][0]
 
 
-        result = f"""
-        1.000 Rupiah {(output_data[0][0]*100):.2f} %
-        2.000 Rupiah {(output_data[0][3]*100):.2f} %
-        5.000 Rupiah {(output_data[0][5]*100):.2f} %
-        10.000 Rupiah {(output_data[0][1]*100):.2f} %
-        20.000 Rupiah {(output_data[0][4]*100):.2f} %
-        50.000 Rupiah {(output_data[0][6]*100):.2f} %
-        100.000 Rupiah {(output_data[0][2]*100):.2f} %
-        """
+        classes = {
+            0:"Rp 1.000",
+            1:"Rp 10.000",
+            2:"Rp 100.000",
 
-        # message = labels[ix]
+            3:"Rp 2.000",
+            4:"Rp 20.000",
 
+            5:"Rp 5.000",
+            6:"Rp 50.000"
+        }
+        
         try:
-            return result
+            return classes[np.argmax(output_data)]
         except Exception as e:
             return f"{e}"
 

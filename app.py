@@ -18,7 +18,7 @@ def predict():
         img = cv2.resize(img, (224, 224))/255
 
 #         x = image.img_to_array(img)
-        x = tf.convert_to_tensor(x)
+        x = tf.convert_to_tensor(img)
         # img = tf.image.per_image_standardization(img)
         img = tf.expand_dims(x, axis=0)
 
